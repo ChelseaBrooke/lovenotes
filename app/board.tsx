@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from "react";
 import {
+  ImageBackground,
   Pressable,
   RefreshControl,
   ScrollView,
@@ -10,7 +11,7 @@ import {
 } from "react-native";
 import { Redirect, router } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Plus, Search, X } from "lucide-react-native";
+import { Heart, Plus, Search, X } from "lucide-react-native";
 import { useTheme } from "@/lib/ThemeProvider";
 import { fonts, hairlineWidth, radius } from "@/lib/theme";
 import { useAuth } from "@/lib/AuthProvider";
@@ -71,7 +72,8 @@ export default function Board() {
   };
 
   return (
-    <SafeAreaView style={[styles.safe, { backgroundColor: t.paper }]} edges={["top"]}>
+    <SafeAreaView style={[styles.safe, { backgroundColor: "#C9A879" }]} edges={["top"]}>
+      <ImageBackground source={require("../assets/cork.png")} style={styles.cork} resizeMode="cover">
       <View style={styles.header}>
         {searching ? (
           <View style={[styles.searchBar, { backgroundColor: t.surface, borderColor: t.hairlineStrong }]}>
@@ -96,7 +98,10 @@ export default function Board() {
           </View>
         ) : (
           <>
-            <Wordmark size={22} />
+            <View style={styles.brand}>
+              <Wordmark size={22} />
+              <Heart size={15} color={t.accent} fill={t.accent} strokeWidth={2} />
+            </View>
             <View style={styles.headerRight}>
               <Pressable onPress={() => setSearching(true)} hitSlop={8} style={styles.iconBtn}>
                 <Search size={20} color={t.textSecondary} />
@@ -155,12 +160,15 @@ export default function Board() {
           <Plus size={26} color="#fff" strokeWidth={2.4} />
         </Pressable>
       </View>
+      </ImageBackground>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   safe: { flex: 1 },
+  cork: { flex: 1 },
+  brand: { flexDirection: "row", alignItems: "center", gap: 6 },
   header: {
     flexDirection: "row",
     alignItems: "center",

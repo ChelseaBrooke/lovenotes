@@ -51,8 +51,13 @@ export function Masonry({
       {columns.map((col, i) => (
         <View key={i} style={styles.col}>
           {col.map((card) => (
-            <View key={card.id} style={{ marginBottom: GAP }}>
+            <View key={card.id} style={styles.cardWrap}>
               <CardView card={card} onPress={() => onPressCard(card)} />
+              <View style={styles.pin} pointerEvents="none">
+                <View style={styles.pinDot}>
+                  <View style={styles.pinHi} />
+                </View>
+              </View>
             </View>
           ))}
         </View>
@@ -64,4 +69,24 @@ export function Masonry({
 const styles = StyleSheet.create({
   row: { flexDirection: "row", gap: GAP },
   col: { flex: 1 },
+  cardWrap: { marginBottom: GAP, position: "relative" },
+  pin: { position: "absolute", top: -7, left: 0, right: 0, alignItems: "center", zIndex: 5 },
+  pinDot: {
+    width: 14,
+    height: 14,
+    borderRadius: 7,
+    backgroundColor: "#C24E3A",
+    borderWidth: 1,
+    borderColor: "rgba(80,30,15,0.35)",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  pinHi: {
+    width: 4,
+    height: 4,
+    borderRadius: 2,
+    backgroundColor: "rgba(255,255,255,0.55)",
+    marginTop: -1,
+    marginLeft: -1,
+  },
 });
